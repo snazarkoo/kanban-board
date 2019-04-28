@@ -1,31 +1,35 @@
 import React, {Component} from 'react';
 
 import {
-  StyledCard,
+  StageContainer,
   StyledInput,
   StageHeader,
   StageActions,
   StageContent
 } from './styles';
 import IconButton from '@material-ui/core/IconButton';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Delete from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
+import Card from '../Card';
 
 export default class Stage extends Component {
   render() {
     return (
-      <StyledCard>
+      <StageContainer>
         <StageHeader>
           <StyledInput defaultValue="To do" margin="none" disableUnderline />
           <IconButton>
-            <MoreVertIcon />
+            <Delete />
           </IconButton>
         </StageHeader>
-        <StageContent />
+        <StageContent>
+          <Card />
+          <Card />
+        </StageContent>
         <StageActions>
           <Button size="small">Add card</Button>
         </StageActions>
-      </StyledCard>
+      </StageContainer>
     );
   }
 }

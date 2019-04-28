@@ -1,11 +1,14 @@
 import React from 'react';
-import Stage from '../Stage';
+import StageList from '../StageList';
+import UserAvatarList from '../UserAvatarList';
+import {AppContainer} from './styles';
 
 function App() {
   return (
-    <div>
-      <Stage />
-    </div>
+    <AppContainer>
+      <UserAvatarList />
+      <StageList />
+    </AppContainer>
   );
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import ReactDOM from 'react-dom';
 import AppComponent from './components/App';
 import * as serviceWorker from './serviceWorker';
@@ -6,8 +6,8 @@ import {Provider} from 'react-redux';
 import configureStore from './store';
 import {createGlobalStyle} from 'styled-components';
 
-createGlobalStyle`
-  body {
+const GlobalStyle = createGlobalStyle`
+ body {
     font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
     margin: 0;
     -webkit-font-smoothing: antialiased;
@@ -16,9 +16,12 @@ createGlobalStyle`
 `;
 
 const App = (
-  <Provider store={configureStore()}>
-    <AppComponent />
-  </Provider>
+  <Fragment>
+    <GlobalStyle />
+    <Provider store={configureStore()}>
+      <AppComponent />
+    </Provider>
+  </Fragment>
 );
 
 ReactDOM.render(App, document.getElementById('root'));
