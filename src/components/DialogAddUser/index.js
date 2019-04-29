@@ -6,11 +6,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+const initialState = {
+  firstName: '',
+  lastName: ''
+};
+
 export default class DialogAddUser extends Component {
-  state = {
-    firstName: '',
-    lastName: ''
-  };
+  state = initialState;
 
   onInputChange = fieldName => event => {
     const value = event.target.value;
@@ -26,6 +28,8 @@ export default class DialogAddUser extends Component {
     const {firstName, lastName} = this.state;
 
     onAddUser({firstName, lastName});
+
+    this.setState(initialState);
   };
 
   render() {

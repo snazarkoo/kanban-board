@@ -39,7 +39,7 @@ export default (state = initialState, action) => {
 
       return {
         ...state,
-        stages: [...stages.slice(0, index), ...stages.slice(index + 1)]
+        stages: immutableSplice(state.stages, index, 1)
       };
     }
     case types.RENAME_STAGE: {
@@ -55,11 +55,7 @@ export default (state = initialState, action) => {
 
       return {
         ...state,
-        stages: [
-          ...stages.slice(0, index),
-          newStage,
-          ...stages.slice(index + 1)
-        ]
+        stages: immutableSplice(state.stages, index, 1, newStage)
       };
     }
 

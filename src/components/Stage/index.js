@@ -35,6 +35,7 @@ export default class Stage extends Component {
   };
 
   render() {
+    const {onRemoveStage, stage} = this.props;
     const {title} = this.state;
 
     return (
@@ -46,7 +47,7 @@ export default class Stage extends Component {
             onChange={this.onInputChange}
             onBlur={this.onChangeTitle}
           />
-          <IconButton>
+          <IconButton onClick={() => onRemoveStage(stage)}>
             <Delete />
           </IconButton>
         </StageHeader>

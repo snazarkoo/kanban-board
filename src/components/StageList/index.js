@@ -5,6 +5,7 @@ import Stage from '../Stage';
 import {StageListContainer, StyledButton} from './styles';
 import {addStage, removeStage, renameStageById} from '../../actions/stages';
 import DialogAddStage from '../DialogAddStage';
+import DialogRemoveStage from '../DialogRemoveStage';
 
 const mapStateToProps = state => ({
   stages: state.stages.stages
@@ -18,46 +19,81 @@ const mapDispatchToProps = dispatch => ({
 
 class StageList extends Component {
   state = {
-    isDialogOpen: false
+    addDialogOpen: false,
+    removeDialogOpen: false,
+    stage: null
   };
 
-  openDialog = () => {
+  openDialog = fieldName => () => {
     this.setState({
-      isDialogOpen: true
+      [fieldName]: true
     });
   };
 
-  closeDialog = () => {
+  closeDialog = fieldName => () => {
     this.setState({
-      isDialogOpen: false
+      [fieldName]: false
     });
   };
 
   addStage = (title, position) => {
     const {onAddStage} = this.props;
 
-    this.closeDialog();
+    this.closeDialog('addDialogOpen')();
 
     onAddStage(title, position);
   };
 
+  removeStage = stage => {
+    const {onRemoveStage} = this.props;
+
+    if (stage && !stage.cards) return onRemoveStage(stage.id);
+
+    this.setState({
+      stage
+    });
+
+    this.openDialog('removeDialogOpen')();
+  };
+
+  removeStageWithCards = () => {
+    const {onRemoveStage} = this.props;
+    const {stage} = this.state;
+
+    onRemoveStage(stage.id);
+
+    this.closeDialog('removeDialogOpen')();
+  };
+
   render() {
-    const {stages, onAddStage, onRenameStage} = this.props;
-    const {isDialogOpen} = this.state;
+    const {stages, onRenameStage} = this.props;
+    const {addDialogOpen, removeDialogOpen} = this.state;
 
     return (
       <Fragment>
         <StageListContainer>
           {stages.map(stage => (
-            <Stage key={stage.id} stage={stage} onChangeTitle={onRenameStage} />
+            <Stage
+              key={stage.id}
+              stage={stage}
+              onChangeTitle={onRenameStage}
+              onRemoveStage={this.removeStage}
+            />
           ))}
-          <StyledButton onClick={this.openDialog}>Add stage</StyledButton>
+          <StyledButton onClick={this.openDialog('addDialogOpen')}>
+            Add stage
+          </StyledButton>
         </StageListContainer>
         <DialogAddStage
-          open={isDialogOpen}
+          open={addDialogOpen}
           onAddStage={this.addStage}
-          onCloseDialog={this.closeDialog}
+          onCloseDialog={this.closeDialog('addDialogOpen')}
           stagesCount={stages.length}
+        />
+        <DialogRemoveStage
+          open={removeDialogOpen}
+          onRemove={this.removeStageWithCards}
+          onCloseDialog={this.closeDialog('removeDialogOpen')}
         />
       </Fragment>
     );

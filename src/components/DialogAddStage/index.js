@@ -55,7 +55,7 @@ export default class DialogAddStage extends Component {
 
     return (
       <StyledFormControl>
-        <InputLabel htmlFor="position">Position</InputLabel>
+        <InputLabel htmlFor="position">Position *</InputLabel>
         <Select
           native
           fullWidth

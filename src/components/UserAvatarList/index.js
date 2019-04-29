@@ -47,8 +47,7 @@ class UserAvatarList extends Component {
   closePopover = () => {
     this.setState({
       anchorEl: null,
-      isPopOverOpen: false,
-      selectedUser: {}
+      isPopOverOpen: false
     });
   };
 
@@ -75,9 +74,9 @@ class UserAvatarList extends Component {
   removeUser = () => {
     const {onRemoveUser} = this.props;
 
-    onRemoveUser(this.state.selectedUser.id);
-
     this.closePopover();
+
+    onRemoveUser(this.state.selectedUser.id);
   };
 
   renderUserPopper() {
