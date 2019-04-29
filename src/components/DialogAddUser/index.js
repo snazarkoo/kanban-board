@@ -6,7 +6,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-export default class DialogCreateUser extends Component {
+export default class DialogAddUser extends Component {
   state = {
     firstName: '',
     lastName: ''

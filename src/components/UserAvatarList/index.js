@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {addUser, removeUser} from '../../actions/users';
 
 import UserAvatar from '../UserAvatar';
+import DialogAddUser from '../DialogAddUser';
 
 import {
   StyledPaper,
@@ -15,7 +16,6 @@ import {
   UserName,
   UserId
 } from './styles';
-import DialogCreateUser from '../DialogCreateUser';
 
 const mapStateToProps = state => ({
   users: state.users.users
@@ -136,7 +136,7 @@ class UserAvatarList extends Component {
             Add user
           </Button>
         </ListWrapper>
-        <DialogCreateUser
+        <DialogAddUser
           open={isDialogOpen}
           onAddUser={this.addUser}
           onCloseDialog={this.closeDialog}

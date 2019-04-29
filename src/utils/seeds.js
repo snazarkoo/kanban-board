@@ -6,15 +6,15 @@ export const userColor = () =>
 const stages = [
   {
     id: v4(),
-    name: 'To do'
+    title: 'To do'
   },
   {
     id: v4(),
-    name: 'In progress'
+    title: 'In progress'
   },
   {
     id: v4(),
-    name: 'Done'
+    title: 'Done'
   }
 ];
 

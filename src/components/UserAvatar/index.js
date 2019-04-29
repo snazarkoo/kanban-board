@@ -6,7 +6,7 @@ export default class UserAvatar extends Component {
   get name() {
     const {firstName, lastName} = this.props.user;
 
-    return `${firstName[0]}${lastName[0]}`;
+    return `${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`;
   }
 
   handleSelect = event => {
