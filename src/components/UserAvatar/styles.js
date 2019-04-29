@@ -10,5 +10,7 @@ export const StyledButton = styled(IconButton)`
 `;
 
 export const StyledAvatar = styled(Avatar)`
-  background-color: ${props => props.color || '#ff5722'};
+  && {
+    background-color: ${props => props.color || '#ff5722'};
+  }
 `;

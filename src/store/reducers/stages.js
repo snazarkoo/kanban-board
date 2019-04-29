@@ -1,5 +1,7 @@
+import seeds from '../../utils/seeds';
+
 const initialState = {
-  stages: []
+  stages: seeds.stages
 };
 
 export default (state = initialState, action) => {
