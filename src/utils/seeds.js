@@ -31,7 +31,7 @@ const cards = [
   {
     id: v4(),
     stage: stages[0].id,
-    name: 'Example card',
+    title: 'Example card',
     description: 'Example description',
     user: null
   }

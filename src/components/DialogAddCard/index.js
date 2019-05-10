@@ -6,17 +6,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-
-import {StyledFormControl} from './styles';
-
 const initialState = {
   name: '',
-  position: ''
+  description: ''
 };
 
-export default class DialogAddStage extends Component {
+export default class DialogAddCard extends Component {
   state = initialState;
 
   onInputChange = fieldName => event => {
@@ -27,18 +22,14 @@ export default class DialogAddStage extends Component {
     });
   };
 
-  addStage = event => {
+  addCard = event => {
     event.preventDefault();
-    const {onAddStage} = this.props;
-    const {name, position} = this.state;
+    const {onAddCard} = this.props;
+    const {name, description} = this.state;
 
-    onAddStage(name, parseFloat(position));
+    onAddCard(name, description);
 
     this.setState(initialState);
-  };
-
-  onSelect = event => {
-    this.setState({position: event.target.value});
   };
 
   onClose = () => {
@@ -49,43 +40,14 @@ export default class DialogAddStage extends Component {
     this.setState(initialState);
   };
 
-  renderSelectListPosition() {
-    const {stagesCount} = this.props;
-    const {position} = this.state;
-
-    return (
-      <StyledFormControl>
-        <InputLabel htmlFor="position">Position *</InputLabel>
-        <Select
-          native
-          fullWidth
-          required
-          value={position}
-          onChange={this.onSelect}
-          inputProps={{
-            name: 'position',
-            id: 'position'
-          }}
-        >
-          <option value="" disabled />
-          {[...Array(stagesCount + 1)].map((s, index) => (
-            <option value={index} key={index}>
-              {index + 1}
-            </option>
-          ))}
-        </Select>
-      </StyledFormControl>
-    );
-  }
-
   render() {
     const {open} = this.props;
-    const {name} = this.state;
+    const {name, description} = this.state;
 
     return (
       <Dialog open={open} onClose={this.onClose}>
-        <form autoComplete="off" onSubmit={this.addStage}>
-          <DialogTitle id="form-dialog-title">Add stage</DialogTitle>
+        <form autoComplete="off" onSubmit={this.addCard}>
+          <DialogTitle id="form-dialog-title">Add card</DialogTitle>
           <DialogContent>
             <TextField
               required
@@ -97,7 +59,14 @@ export default class DialogAddStage extends Component {
               value={name}
               onChange={this.onInputChange('name')}
             />
-            {this.renderSelectListPosition()}
+            <TextField
+              margin="dense"
+              id="description"
+              label="Description"
+              fullWidth
+              value={description}
+              onChange={this.onInputChange('description')}
+            />
           </DialogContent>
           <DialogActions>
             <Button onClick={this.onClose} color="primary">

@@ -1,6 +1,7 @@
 import seeds, {userColor} from '../../utils/seeds';
 import {types} from '../../actions/users';
 import {v4} from 'uuid';
+import {immutableSplice} from '../../utils';
 
 const initialState = {
   users: seeds.users
@@ -24,7 +25,7 @@ export default (state = initialState, action) => {
 
       return {
         ...state,
-        users: [...users.slice(0, index), ...users.slice(index + 1)]
+        users: immutableSplice(state.users, index, 1)
       };
     }
 

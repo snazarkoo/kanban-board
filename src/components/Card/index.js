@@ -20,13 +20,22 @@ export default class Card extends Component {
     this.setState({anchorEl: null});
   };
 
+  handleRemove = () => {
+    const {onRemoveCard, card} = this.props;
+
+    this.handleClose();
+
+    onRemoveCard(card.id);
+  };
+
   render() {
+    const {card} = this.props;
     const {anchorEl} = this.state;
     const open = Boolean(anchorEl);
 
     return (
       <StyledCard>
-        <CardTitle>First Card</CardTitle>
+        <CardTitle>{card.title}</CardTitle>
 
         <Actions>
           <StyledIconButton disabled>
@@ -45,20 +54,12 @@ export default class Card extends Component {
           <Menu
             id="menu-appbar"
             anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left'
-            }}
-            transformOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left'
-            }}
             open={open}
             onClose={this.handleClose}
           >
             <MenuItem onClick={this.handleClose}>Edit</MenuItem>
             <MenuItem onClick={this.handleClose}>Move to</MenuItem>
-            <MenuItem onClick={this.handleClose}>Remove</MenuItem>
+            <MenuItem onClick={this.handleRemove}>Remove</MenuItem>
           </Menu>
         </Actions>
       </StyledCard>

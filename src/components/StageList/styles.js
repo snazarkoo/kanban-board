@@ -6,6 +6,7 @@ export const StageListContainer = styled.div`
   flex-direction: row;
   overflow-x: scroll;
   padding: 15px 0;
+  align-items: flex-start;
 `;
 
 export const StyledButton = styled(Button)`

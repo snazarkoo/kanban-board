@@ -44,10 +44,10 @@ class StageList extends Component {
     onAddStage(title, position);
   };
 
-  removeStage = stage => {
+  removeStage = (stage, cards) => {
     const {onRemoveStage} = this.props;
 
-    if (stage && !stage.cards) return onRemoveStage(stage.id);
+    if (!cards.length) return onRemoveStage(stage.id);
 
     this.setState({
       stage

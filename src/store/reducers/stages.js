@@ -1,16 +1,11 @@
 import seeds from '../../utils/seeds';
 import {types} from '../../actions/stages';
 import {v4} from 'uuid';
+import {immutableSplice} from '../../utils';
 
 const initialState = {
   stages: seeds.stages
 };
-
-export const immutableSplice = (arr, start, deleteCount, ...items) => [
-  ...arr.slice(0, start),
-  ...items,
-  ...arr.slice(start + deleteCount)
-];
 
 export default (state = initialState, action) => {
   switch (action.type) {
