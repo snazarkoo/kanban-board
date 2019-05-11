@@ -36,19 +36,37 @@ export default class Card extends Component {
     onEditCard(card);
   };
 
+  moveCard = direction => () => {
+    const {onMoveCard, card, stages} = this.props;
+    const currentPosition = stages.findIndex(({id}) => id === card.stage);
+    const nextPosition =
+      direction === 'right' ? currentPosition + 1 : currentPosition - 1;
+    const newStageId = stages[nextPosition].id;
+
+    onMoveCard(newStageId);
+  };
+
   render() {
-    const {card} = this.props;
+    const {card, stages} = this.props;
     const {anchorEl} = this.state;
     const open = Boolean(anchorEl);
+    const isFirstStage = card.stage === stages[0].id;
+    const isLastStage = card.stage === stages[stages.length - 1].id;
 
     return (
       <StyledCard>
         <CardTitle>{card.title}</CardTitle>
         <Actions>
-          <StyledIconButton disabled>
+          <StyledIconButton
+            disabled={isFirstStage}
+            onClick={this.moveCard('left')}
+          >
             <ArrowLeft />
           </StyledIconButton>
-          <StyledIconButton>
+          <StyledIconButton
+            disabled={isLastStage}
+            onClick={this.moveCard('right')}
+          >
             <ArrowRight />
           </StyledIconButton>
           <StyledIconButton

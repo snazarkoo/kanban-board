@@ -16,7 +16,8 @@ import {addCard, removeCard, editCard} from '../../actions/cards';
 
 const mapStateToProps = state => ({
   cards: state.cards.cards,
-  users: state.users.users
+  users: state.users.users,
+  stages: state.stages.stages
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -90,6 +91,17 @@ class Stage extends Component {
     onEditCard(card);
   };
 
+  moveCard = card => stageId => {
+    const {onEditCard} = this.props;
+
+    const newCard = {
+      ...card,
+      stage: stageId
+    };
+
+    onEditCard(newCard);
+  };
+
   openEditCardDialog = card => {
     this.openDialog('addCardDialogOpen')();
 
@@ -99,7 +111,7 @@ class Stage extends Component {
   };
 
   renderContent() {
-    const {onRemoveCard} = this.props;
+    const {onRemoveCard, stages} = this.props;
 
     if (!this.stageCards.length) return;
 
@@ -112,6 +124,8 @@ class Stage extends Component {
               card={card}
               onRemoveCard={onRemoveCard}
               onEditCard={this.openEditCardDialog}
+              onMoveCard={this.moveCard(card)}
+              stages={stages}
             />
           );
         })}

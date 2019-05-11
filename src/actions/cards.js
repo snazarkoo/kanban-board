@@ -1,7 +1,8 @@
 export const types = {
   ADD_CARD: 'CARDS/ADD_CARD',
   REMOVE_CARD: 'CARDS/REMOVE_CARD',
-  EDIT_CARD: 'CARDS/EDIT_CARD'
+  EDIT_CARD: 'CARDS/EDIT_CARD',
+  MOVE_CARD_TO_STAGE: 'CARDS/MOVE_CARD_TO_STAGE'
 };
 
 export const addCard = card => ({
