@@ -33,7 +33,7 @@ const cards = [
     stage: stages[0].id,
     title: 'Example card',
     description: 'Example description',
-    user: null
+    userId: null
   }
 ];
 

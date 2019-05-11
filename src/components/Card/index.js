@@ -28,6 +28,14 @@ export default class Card extends Component {
     onRemoveCard(card.id);
   };
 
+  handleEdit = () => {
+    const {onEditCard, card} = this.props;
+
+    this.handleClose();
+
+    onEditCard(card);
+  };
+
   render() {
     const {card} = this.props;
     const {anchorEl} = this.state;
@@ -36,7 +44,6 @@ export default class Card extends Component {
     return (
       <StyledCard>
         <CardTitle>{card.title}</CardTitle>
-
         <Actions>
           <StyledIconButton disabled>
             <ArrowLeft />
@@ -57,7 +64,7 @@ export default class Card extends Component {
             open={open}
             onClose={this.handleClose}
           >
-            <MenuItem onClick={this.handleClose}>Edit</MenuItem>
+            <MenuItem onClick={this.handleEdit}>Edit</MenuItem>
             <MenuItem onClick={this.handleClose}>Move to</MenuItem>
             <MenuItem onClick={this.handleRemove}>Remove</MenuItem>
           </Menu>

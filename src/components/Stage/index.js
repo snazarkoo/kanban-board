@@ -12,21 +12,24 @@ import Delete from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 import DialogAddCard from '../DialogAddCard';
 import Card from '../Card';
-import {addCard, removeCard} from '../../actions/cards';
+import {addCard, removeCard, editCard} from '../../actions/cards';
 
 const mapStateToProps = state => ({
-  cards: state.cards.cards
+  cards: state.cards.cards,
+  users: state.users.users
 });
 
 const mapDispatchToProps = dispatch => ({
   onAddCard: (title, description) => dispatch(addCard(title, description)),
-  onRemoveCard: id => dispatch(removeCard(id))
+  onRemoveCard: id => dispatch(removeCard(id)),
+  onEditCard: card => dispatch(editCard(card))
 });
 
 class Stage extends Component {
   state = {
     title: this.props.stage.title,
-    addCardDialogOpen: false
+    addCardDialogOpen: false,
+    card: null
   };
 
   get stageCards() {
@@ -49,7 +52,8 @@ class Stage extends Component {
 
   closeDialog = fieldName => () => {
     this.setState({
-      [fieldName]: false
+      [fieldName]: false,
+      card: null
     });
   };
 
@@ -65,18 +69,33 @@ class Stage extends Component {
     onChangeTitle(newTitle, id);
   };
 
-  addCard = (title, description) => {
+  addCard = card => {
     const {onAddCard, stage} = this.props;
 
     this.closeDialog('addCardDialogOpen')();
 
-    const card = {
-      title,
-      description,
+    const newCard = {
+      ...card,
       stage: stage.id
     };
 
-    onAddCard(card);
+    onAddCard(newCard);
+  };
+
+  editCard = card => {
+    const {onEditCard} = this.props;
+
+    this.closeDialog('addCardDialogOpen')();
+
+    onEditCard(card);
+  };
+
+  openEditCardDialog = card => {
+    this.openDialog('addCardDialogOpen')();
+
+    this.setState({
+      card
+    });
   };
 
   renderContent() {
@@ -87,15 +106,22 @@ class Stage extends Component {
     return (
       <StageContent>
         {this.stageCards.map(card => {
-          return <Card key={card.id} card={card} onRemoveCard={onRemoveCard} />;
+          return (
+            <Card
+              key={card.id}
+              card={card}
+              onRemoveCard={onRemoveCard}
+              onEditCard={this.openEditCardDialog}
+            />
+          );
         })}
       </StageContent>
     );
   }
 
   render() {
-    const {onRemoveStage, stage} = this.props;
-    const {title, addCardDialogOpen} = this.state;
+    const {onRemoveStage, stage, users} = this.props;
+    const {title, addCardDialogOpen, card} = this.state;
 
     return (
       <Fragment>
@@ -120,11 +146,16 @@ class Stage extends Component {
             </Button>
           </StageActions>
         </StageContainer>
-        <DialogAddCard
-          open={addCardDialogOpen}
-          onAddCard={this.addCard}
-          onCloseDialog={this.closeDialog('addCardDialogOpen')}
-        />
+        {addCardDialogOpen && (
+          <DialogAddCard
+            open={addCardDialogOpen}
+            onAddCard={this.addCard}
+            onEditCard={this.editCard}
+            onCloseDialog={this.closeDialog('addCardDialogOpen')}
+            users={users}
+            card={card}
+          />
+        )}
       </Fragment>
     );
   }
