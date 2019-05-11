@@ -76,17 +76,16 @@ export default class Card extends Component {
           >
             <MoreVertIcon />
           </StyledIconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={this.handleClose}
-          >
-            <MenuItem onClick={this.handleEdit}>Edit</MenuItem>
-            <MenuItem onClick={this.handleClose}>Move to</MenuItem>
-            <MenuItem onClick={this.handleRemove}>Remove</MenuItem>
-          </Menu>
         </Actions>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={this.handleClose}
+        >
+          <MenuItem onClick={this.handleEdit}>Edit</MenuItem>
+          <MenuItem onClick={this.handleRemove}>Remove</MenuItem>
+        </Menu>
       </StyledCard>
     );
   }
